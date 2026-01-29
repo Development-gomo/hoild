@@ -35,7 +35,7 @@ export default function HomeUsp({ data }) {
               {uspIconUrl ? (
                 <Image
                   src={uspIconUrl}
-                  alt={usp_title || 'USP Icon'}
+                  alt={usp_title || 'USP Iconsss'}
                   width={100}
                   height={100}
                   className="w-24 h-24 mb-4 object-contain"
