@@ -1,0 +1,60 @@
+/* Import TailwindCSS */
+@import "tailwindcss";
+
+/* ==========================================
+   BASE ROOT (optional future branding setup)
+========================================== */
+:root {
+  --font-primary: "Inter", system-ui, sans-serif; /* Body Text Font */
+  --font-serif: "Tinos", serif; /* Title Font */
+
+  --color-dark: #2B2B2B;
+  --color-light: #FFFFFF;
+  --color-grey: #9192A0;
+  --color-accent: #00FEC3;
+  --color-brand: #151B5D;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Global body styling */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary); /* Use Inter for body text */
+  font-weight: 400;
+}
+
+/* Apply Tinos font to headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif); /* Use Tinos for headings */
+  font-weight: 500;
+}
+
+/* Other text elements using Inter font */
+p, i, span, a, ul, ol, li, blockquote {
+  font-family: var(--font-primary); /* Use Inter for body text */
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* TailwindCSS theme customizations */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-primary);
+  --font-mono: var(--font-serif);
+}
+
+/* Global container */
+.web-width {
+  max-width: 1328px;
+  margin-left: auto;
+  margin-right: auto;
+}
