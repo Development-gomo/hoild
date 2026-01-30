@@ -9,56 +9,60 @@ export default function HomeUsp({ data }) {
   const usps = data?.usps || [];
 
   return (
-    <section className="w-full flex flex-col items-center py-12">
+    <section id="main-usp" className="w-full py-12 bg-drk">
+      {/* Content container */}
+      <div className="web-width px-6 py-10 flex flex-col items-center">
+        {/* Main USP Image */}
+        {uspImage && (
+          <Image
+            src={uspImage}
+            alt="USP Main Image"
+            width={975}
+            height={485}
+            className="gif-img"
+          />
+        )}
 
-      {/* Main USP Image */}
-      {uspImage && (
-        <Image
-          src={uspImage}
-          alt="USP Main Image"
-          width={500}
-          height={500}
-          className="w-full md:w-1/2 rounded-xl object-cover mb-8"
-        />
-      )}
+        {/* USP Repeater (Three USPs in a Row) */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-[145px] mt-12">
+          {usps.map((usp, index) => {
+            const uspIconUrl = usp?.usp_icon || '';
+            const usp_title = usp?.usp_title || '';
+            const usp_subtext = usp?.usp_subtext || '';
 
-      {/* USP Repeater (Three USPs in a Row) */}
-      <div className="flex flex-wrap justify-center gap-8">
-        {usps.map((usp, index) => {
-          const uspIconUrl = usp?.usp_icon || '';
-          const usp_title = usp?.usp_title || '';
-          const usp_subtext = usp?.usp_subtext || '';
+            return (
+              <div key={index} className="flex flex-col">
+                {/* Icon and Title in one line */}
+                <div className="flex items-center gap-4 mb-4">
+                  {/* USP Icon */}
+                  {uspIconUrl ? (
+                    <Image
+                      src={uspIconUrl}
+                      alt={usp_title || 'USP Icon'}
+                      width={28}
+                      height={28}
+                      className="flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 bg-gray-200 flex items-center justify-center flex-shrink-0">
+                      <span>No Icon</span>
+                    </div>
+                  )}
 
-          return (
-            <div key={index} className="w-full sm:w-1/3 text-center flex flex-col items-center">
-              {/* USP Icon */}
-              {uspIconUrl ? (
-                <Image
-                  src={uspIconUrl}
-                  alt={usp_title || 'USP Iconsss'}
-                  width={100}
-                  height={100}
-                  className="w-24 h-24 mb-4 object-contain"
-                />
-              ) : (
-                <div className="w-24 h-24 mb-4 bg-gray-200 flex items-center justify-center">
-                  {/* Optional: Placeholder content if icon is missing */}
-                  <span>No Icon</span>
+                  {/* USP Title */}
+                  {usp_title && (
+                    <p className="text-white fs24 fw500">{usp_title}</p>
+                  )}
                 </div>
-              )}
 
-              {/* USP Title */}
-              {usp_title && (
-                <h3 className="text-xl font-semibold text-gray-800">{usp_title}</h3>
-              )}
-
-              {/* USP Subtext */}
-              {usp_subtext && (
-                <p className="text-base text-gray-600 mt-2">{usp_subtext}</p>
-              )}
-            </div>
-          );
-        })}
+                {/* USP Subtext */}
+                {usp_subtext && (
+                  <p className="text-white">{usp_subtext}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

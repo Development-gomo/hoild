@@ -13,7 +13,21 @@ async function resolveMediaIds(data) {
   const resolved = { ...data };
   
   // List of field names that contain media IDs
-  const mediaFields = ['usp_icon', 'usp_main_image', 'bg_image', 'image', 'icon', 'thumbnail', 'avatar', 'logo', 'featured_image'];
+  const mediaFields = [
+    'usp_icon',
+    'usp_main_image',
+    'bg_image',
+    'background_image',
+    'foreground_image',
+    'image',
+    'icon',
+    'thumbnail',
+    'avatar',
+    'logo',
+    'client_logo',
+    'feature_icon',
+    'featured_image',
+  ];
 
   for (const [key, value] of Object.entries(resolved)) {
     // Only resolve numeric values in known media field names

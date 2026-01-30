@@ -28,13 +28,29 @@ body {
 /* Apply Tinos font to headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif); /* Use Tinos for headings */
-  font-weight: 500;
+  font-weight: 400;
 }
-
+h1{
+  font-size: 80px;
+  line-height: 1;
+}
+h2{
+  font-size: 56px;
+  line-height: 1.1;
+}
 /* Other text elements using Inter font */
 p, i, span, a, ul, ol, li, blockquote {
   font-family: var(--font-primary); /* Use Inter for body text */
 }
+.mb-32{
+  margin-bottom: 32px;
+}
+p{
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400; 
+}
+
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
@@ -57,4 +73,97 @@ p, i, span, a, ul, ol, li, blockquote {
   max-width: 1328px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Custom Button Wrapper */
+.custom-button-wrapper {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1E3A8A; /* Adjust to your blue color */
+  padding: 12px 24px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.custom-button-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  transform: scale(0) rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.custom-button-wrapper:hover::before {
+  transform: scale(1) rotate(90deg);
+}
+
+/* Custom Button Text */
+/* .btn-blue{
+background: #2A3EF4;
+color: #FFFFFF;
+position: relative;
+}
+
+.btn-blue:before {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    background: #ffffff;
+    content: '';
+    left: 5px;
+    top: 41%;
+} */
+
+
+/* Custom Button Styles */
+.btn-blue {
+  background: #2A3EF4;
+  color: #FFFFFF;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 13px 24px 13px 40px;
+}
+
+/* Before Pseudo Element */
+.btn-blue:before {
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  background: #ffffff;
+  content: '';
+  left: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.btn-blue:hover:before {
+  height: 5px !important;
+  width: 5px !important;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#main-hero .mt-big{
+margin-top: 200px;  
+}
+.bg-drk{
+  background-color:#000821 !important;
+}
+
+.gap-custom{
+  gap: 80px;
+}
+.fs24{
+  font-size: 24px;
+}
+.fw500{
+  font-weight: 500;
 }
