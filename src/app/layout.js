@@ -1,5 +1,7 @@
 import { Inter, Tinos } from "next/font/google"; // Importing the necessary Google Fonts
 import "./globals.css";
+import Header from "@/components/major/Header"; // Global Header
+import Footer from "@/components/major/Footer"; // Global Footer
 
 // Configuring Inter font
 const inter = Inter({
@@ -28,7 +30,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.variable} ${tinos.variable} antialiased`} // Applying the fonts globally
       >
-        {children}
+        <Header />   {/* Sticky global header */}
+        {children}   {/* Page content (contains <main> from pages) */}
+        <Footer />   {/* Global footer */}
       </body>
     </html>
   );
