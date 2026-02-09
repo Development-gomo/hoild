@@ -7,7 +7,7 @@ export default function HomeHero({ data }) {
   const bgVideo = bg_video || "";
 
   return (
-    <section id="main-hero" className="w-full relative flex flex-col md:flex-row items-center justify-between min-h-[95vh]">
+    <section id="main-hero" className="w-full relative flex flex-col md:flex-row items-center justify-between min-h-[95vh] py-12 md:py-16">
       {/* Full-width background section */}
       {bgVideo ? (
         <video

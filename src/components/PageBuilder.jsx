@@ -6,6 +6,9 @@ const HomeHero = dynamic(() => import("./sections/home/HomeHero"));
 const ImageContentSection = dynamic(() => import("./sections/home/ImageContentSection"));
 const HomeUsp = dynamic(() => import("./sections/home/HomeUsp")); // Importing HomeUsp
 const SpeacialHeading = dynamic(() => import("./sections/home/SpeacialHeading")); // Importing SpeacialHeading
+const ServicesSlider = dynamic(() => import("./sections/home/ServicesSlider"));
+const InsightsSection = dynamic(() => import("./sections/home/InsightsSection"));
+
 
 export default function PageBuilder({ sections }) {
   if (!sections || !sections.length) return null;
@@ -63,7 +66,13 @@ export default function PageBuilder({ sections }) {
             return <HomeUsp key={index} data={block} />;
 
           case "speacial_heading": 
-            return <SpeacialHeading key={index} data={block} />; 
+            return <SpeacialHeading key={index} data={block} />;
+            
+          case "services_section": 
+            return <ServicesSlider key={index} data={block} />;
+
+          case "insights_section": 
+            return <InsightsSection key={index} data={block} postsPath="/blog" />;
 
           default:
             return null;
