@@ -59,14 +59,14 @@ function RangeField({
         {/* Blue dot marker under the tick */}
         <div
           className="absolute w-2 h-2 rounded-full bg-[#2A3EF4]"
-          style={{ left: `${p}%`, transform: "translateX(-50%)", top: "38px", }}
+          style={{ left: `${p}%`, transform: "translateX(-40%)", top: "38px", }}
           aria-hidden="true"
         />
 
         {/* value under thumb */}
         <div
           className="absolute text-[12px] font-semibold text-slate-900"
-          style={{ left: `${p}%`, transform: "translateX(-50%)", top: "52px" }}
+          style={{ left: `${p}%`, transform: "translateX(-40%)", top: "52px" }}
         >
           {valueLabel}
         </div>
@@ -231,74 +231,76 @@ export default function RevenueCalculatorSection({
           <div className="space-y-6">
             {/* Top card: Gauge + Yearly */}
             <div className="rounded-[14px] overflow-hidden border border-white/10 shadow-[0_10px_30px_rgba(17,24,39,.18)] bg-[#000821]">
-              <div className="px-6 pt-6 pb-4 bg-[#000821]">
+              <div className="px-6 pb-4 bg-[#000821]">
                 {/* Gauge */}
                 <svg
-                  className="w-full h-[180px] block"
-                  viewBox="0 0 520 220"
-                  aria-label="Revenue gauge"
-                  role="img"
+                className="w-full h-[240px] block"
+                viewBox="0 0 520 230"
+                aria-label="Revenue gauge"
+                role="img"
                 >
-                  <path
-                    d="M60,50 A200,200 0 0 0 460,50"
-                    fill="none"
-                    stroke="rgba(255,255,255,.10)"
-                    strokeWidth="16"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M85,50 A175,175 0 0 0 435,50"
-                    fill="none"
-                    stroke="rgba(255,255,255,.12)"
-                    strokeWidth="10"
-                    strokeDasharray="2 10"
-                    strokeLinecap="round"
-                  />
+                {/* OUTER dashed border */}
+                <path
+                  d="M84,55 A156,156 0 0 0 436,55"
+                  fill="none"
+                  stroke="rgba(79,93,255,.25)"
+                  strokeWidth="2"
+                  strokeDasharray="8 6"
+                  strokeLinecap="round"
+                />
 
-                  {/* Track (also used to read total length) */}
-                  <path
+                {/* INNER dashed border */}
+                <path
+                  d="M150,55 A110,110 0 0 0 370,55"
+                  fill="none"
+                  stroke="rgba(79,93,255,.25)"
+                  strokeWidth="2"
+                  strokeDasharray="8 6"
+                  strokeLinecap="round"
+                />
+
+                {/* Base track */}
+                <path
                     ref={trackRef}
-                    d="M105,50 A155,155 0 0 0 415,50"
+                    d="M120,55 A140,140 0 0 0 400,55"
                     fill="none"
-                    stroke="rgba(255,255,255,.16)"
-                    strokeWidth="28"
+                    stroke="rgba(255,255,255,.15)"
+                    strokeWidth="32"
                     strokeLinecap="round"
-                  />
+                />
 
-                  {/* Glow */}
-                  <path
-                    d="M105,50 A155,155 0 0 0 415,50"
+                {/* Glow arc */}
+                <path
+                    d="M120,55 A140,140 0 0 0 400,55"
                     fill="none"
-                    stroke="rgba(79,93,255,.30)"
-                    strokeWidth="40"
+                    stroke="rgba(79,93,255,.35)"
+                    strokeWidth="44"
                     strokeLinecap="round"
                     style={{
-                      strokeDasharray: `${filledLen} ${fullLen}`,
-                      transition: "stroke-dasharray 420ms ease",
+                    strokeDasharray: `${filledLen} ${fullLen}`,
+                    transition: "stroke-dasharray 420ms ease",
                     }}
-                  />
+                />
 
-                  {/* Progress */}
-                  <path
-                    d="M105,50 A155,155 0 0 0 415,50"
+                {/* Progress arc */}
+                <path
+                    d="M120,55 A140,140 0 0 0 400,55"
                     fill="none"
                     stroke="#2A3EF4"
-                    strokeWidth="28"
+                    strokeWidth="32"
                     strokeLinecap="round"
                     style={{
-                      strokeDasharray: `${filledLen} ${fullLen}`,
-                      transition: "stroke-dasharray 420ms ease",
+                    strokeDasharray: `${filledLen} ${fullLen}`,
+                    transition: "stroke-dasharray 420ms ease",
                     }}
-                  />
+                />
                 </svg>
 
-                <div className="-mt-2 text-center">
-                  <div className="text-[#EAF0FF] font-extrabold tracking-tight text-4xl md:text-5xl">
-                    {fmtMoney(yearly)}
-                  </div>
-                  <div className="mt-1 text-[12px] text-white/70">
-                    Revenue / year
-                  </div>
+                <div className="text-center pt-2 pb-4">
+                    <div className="text-[#EAF0FF] font-medium tracking-tight text-4xl md:text-4xl">
+                        {fmtMoney(yearly)}
+                    </div>
+                    <div className="mt-1 text-[12px] text-white/70">Revenue / year</div>
                 </div>
               </div>
             </div>
