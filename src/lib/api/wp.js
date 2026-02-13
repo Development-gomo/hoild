@@ -44,7 +44,7 @@ export const fetchMediaById = async (id) => {
 };
 
 /* ======================================================
-   SERVICES / CASE STUDIES
+   SERVICES / CASE STUDIES / Testimonial
 ====================================================== */
 
 export async function fetchServiceBySlug(slug) {
@@ -58,6 +58,14 @@ export async function fetchServiceBySlug(slug) {
 export async function fetchCaseStudyBySlug(slug) {
   const res = await fetch(
     `${WP_BASE}/case_study?slug=${encodeURIComponent(slug)}`
+  );
+  const data = await res.json();
+  return data?.[0] || null;
+}
+
+export async function fetchTestimonialBySlug(slug) {
+  const res = await fetch(
+    `${WP_BASE}/testimonial?slug=${encodeURIComponent(slug)}`
   );
   const data = await res.json();
   return data?.[0] || null;

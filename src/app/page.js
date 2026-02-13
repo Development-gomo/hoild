@@ -27,6 +27,7 @@ async function resolveMediaIds(data) {
     'client_logo',
     'feature_icon',
     'featured_image',
+    'brand_logo',
   ];
 
   for (const [key, value] of Object.entries(resolved)) {
