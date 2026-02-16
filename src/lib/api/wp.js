@@ -49,8 +49,11 @@ export const fetchMediaById = async (id) => {
 
 export async function fetchServiceBySlug(slug) {
   const res = await fetch(
-    `${WP_BASE}/services?slug=${encodeURIComponent(slug)}`
+    `${WP_BASE}/services?slug=${encodeURIComponent(slug)}&_embed=1`,
+    { cache: "no-store" }
   );
+  if (!res.ok) return null;
+
   const data = await res.json();
   return data?.[0] || null;
 }
