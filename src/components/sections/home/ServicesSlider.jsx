@@ -123,13 +123,9 @@ export default function ServicesSlider({ data }) {
     );
   };
 
-  const getServiceIcon = (post) => {
-    // ACF field `service_icon` may be an object or a URL string
-    const acfIcon = post?.acf?.service_icon;
-    if (acfIcon) return acfIcon?.source_url || acfIcon;
-    const fm = post?._embedded?.["wp:featuredmedia"]?.[0];
-    // fallback to featured media if desired (keeps previous behavior optional)
-    return post?.service_icon?.source_url || post?.service_icon || "";
+  const getServiceIconUrl = (post) => {
+    const url = post?.acf?.service_icon;
+    return typeof url === "string" ? url : "";
   };
 
   const getTitle = (post) => stripHtml(post?.title?.rendered || "");
@@ -217,7 +213,7 @@ export default function ServicesSlider({ data }) {
               const title = getTitle(post);
               const excerpt = getExcerpt(post);
               const img = getFeaturedImage(post);
-              const serviceIcon = getServiceIcon(post);
+              const serviceIconUrl = getServiceIconUrl(post);
 
               const href = `${hrefBase}/${post?.slug || ""}`.replace(/\/+$/, "");
 
@@ -253,8 +249,12 @@ export default function ServicesSlider({ data }) {
                                    hover:bg-white transition"
                         aria-label={`Open ${title}`}
                       >
-                        {serviceIcon ? (
-                          <Image src={serviceIcon} alt={`${title} icon`} width={18} height={18} className="object-contain" />
+                        {serviceIconUrl ? (
+                          <img
+                            src={serviceIconUrl}
+                            alt={`${title} icon`}
+                            className="w-[18px] h-[18px] object-contain"
+                          />
                         ) : (
                           <Icon type={iconTypeByIndex(idx)} />
                         )}
