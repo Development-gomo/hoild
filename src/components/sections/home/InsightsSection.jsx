@@ -18,7 +18,7 @@ export default function InsightsSection({ data }) {
     text_below_heading,
     apiBase,
     limit = 3,
-    postsPath = "/blog",
+    postsPath = "/insights",
     card_variant,
   } = data;
 
