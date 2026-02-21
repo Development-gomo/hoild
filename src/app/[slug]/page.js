@@ -1,71 +1,79 @@
 // src/app/[slug]/page.js
 
 import PageBuilder from "@/components/PageBuilder";
+import InnerPageBuilder from "@/components/InnerPageBuilder";
 import { fetchPageData, fetchMediaById } from "@/lib/api/wp";
 import { buildMetadataFromYoast } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
+// Recursive function to resolve known media ID fields to media objects
+async function resolveMediaIds(data) {
+  if (typeof data !== "object" || data === null) return data;
+
+  if (Array.isArray(data)) return Promise.all(data.map((item) => resolveMediaIds(item)));
+
+  const resolved = { ...data };
+
+  const mediaFields = [
+    "usp_icon",
+    "usp_main_image",
+    "bg_image",
+    "background_image",
+    "foreground_image",
+    "image",
+    "icon",
+    "thumbnail",
+    "avatar",
+    "logo",
+    "client_logo",
+    "feature_icon",
+    "featured_image",
+    "brand_logo",
+    "service_icon",
+    "hero_image",
+  ];
+
+  for (const [key, value] of Object.entries(resolved)) {
+    // If numeric ID, fetch the media object so components can use `.source_url` or `.url`
+    if (typeof value === "number" && mediaFields.includes(key)) {
+      const media = await fetchMediaById(value);
+      resolved[key] = media || "";
+    } else if (typeof value === "object" && value !== null) {
+      resolved[key] = await resolveMediaIds(value);
+    }
+  }
+
+  return resolved;
+}
+
 export default async function DynamicPage({ params }) {
-  // ✅ IMPORTANT: params is async in App Router (Next 15+)
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
 
-  if (!slug) {
-    notFound();
-  }
+  if (!slug) notFound();
 
-  // Fetch page by slug
   const data = await fetchPageData(slug);
-
-  if (!data || !data.length) {
-    notFound();
-  }
+  if (!data || !data.length) notFound();
 
   const acf = data[0].acf || {};
-  const builder = acf.page_builder || [];
 
-  // Resolve media IDs → URLs
-  const resolvedBuilder = await Promise.all(
-    builder.map(async (section) => {
-      // Banner background image
-      if (section.acf_fc_layout === "banner" && section.bg_image) {
-        const media = await fetchMediaById(section.bg_image);
-        return {
-          ...section,
-          bg_image_url: media?.source_url || "",
-        };
-      }
+  // Support both builders
+  const builder = acf.page_builder || acf.inner_page_builder || [];
 
-      // Image + Text section image
-      if (section.acf_fc_layout === "image_text" && section.image) {
-        const media = await fetchMediaById(section.image);
-        return {
-          ...section,
-          image_url: media?.source_url || "",
-        };
-      }
+  const resolvedBuilder = await Promise.all((builder || []).map((section) => resolveMediaIds(section)));
 
-      return section;
-    })
-  );
+  const isInner = Boolean(acf.inner_page_builder);
 
   return (
-    <main className="min-h-screen bg-zinc-50 font-sans">
-      <div className="mx-auto max-w-5xl px-6 py-14 flex flex-col gap-10">
-        <PageBuilder sections={resolvedBuilder} />
-      </div>
+    <main className="min-h-screen">
+      {isInner ? <InnerPageBuilder sections={resolvedBuilder} /> : <PageBuilder sections={resolvedBuilder} />}
     </main>
   );
 }
 
-/**
- * ✅ SEO — Yoast → Next.js metadata
- * This runs on the server and injects <head> tags
- */
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
-
   if (!slug) return {};
 
   const data = await fetchPageData(slug);

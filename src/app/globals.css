@@ -167,3 +167,8 @@ margin-top: 200px;
 .fw500{
   font-weight: 500;
 }
+.w-3.h-3.bg-blue-600.block.rounded-sm{
+border-radius: 0;
+width: 5px !important;
+height: 5px !important;
+}

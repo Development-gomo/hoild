@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 const InnerHeroSection = dynamic(() => import("./sections/inner/InnerHeroSection"));
 const ContentBlock = dynamic(() => import("./sections/inner/ContentBlock"));
 const TwoColumnContentSection = dynamic(() => import("./sections/inner/TwoColumnContentSection"));
+const ContactSection = dynamic(() => import("./sections/inner/ContactSection"));
 
 export default function InnerPageBuilder({ sections }) {
     if (!sections || !sections.length) return null;
@@ -21,6 +22,9 @@ export default function InnerPageBuilder({ sections }) {
 
           case "two_column_content_section":
             return <TwoColumnContentSection key={index} data={block} />;
+
+          case "contact_section":
+            return <ContactSection key={index} data={block} />;
 
           // Add later when ready
           // case "feature_grid_section":

@@ -10,6 +10,7 @@ const ServicesSlider = dynamic(() => import("./sections/home/ServicesSlider"));
 const InsightsSection = dynamic(() => import("./sections/home/InsightsSection"));
 const RevenueCalculator = dynamic(() => import("./sections/home/RevenueCalculator")); // Importing RevenueCalculator
 const TestimonialSlider = dynamic(() => import("./sections/home/TestimonialSlider"));
+const ContactSection = dynamic(() => import("./sections/inner/ContactSection"));
 
 export default function PageBuilder({ sections }) {
   if (!sections || !sections.length) return null;
@@ -80,6 +81,9 @@ export default function PageBuilder({ sections }) {
           
           case "testimonial_section":
             return <TestimonialSlider key={index} data={block} />;
+
+          case "contact_section":
+            return <ContactSection key={index} data={block} />;
 
           default:
             return null;
