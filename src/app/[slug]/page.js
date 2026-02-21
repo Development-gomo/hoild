@@ -1,6 +1,7 @@
 // src/app/[slug]/page.js
 
 import PageBuilder from "@/components/PageBuilder";
+import InnerPageBuilder from "@/components/InnerPageBuilder";
 import { fetchPageData, fetchMediaById } from "@/lib/api/wp";
 import { buildMetadataFromYoast } from "@/lib/seo";
 import { notFound } from "next/navigation";
@@ -46,44 +47,33 @@ async function resolveMediaIds(data) {
 }
 
 export default async function DynamicPage({ params }) {
-  // ✅ IMPORTANT: params is async in App Router (Next 15+)
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
 
-  if (!slug) {
-    notFound();
-  }
+  if (!slug) notFound();
 
-  // Fetch page by slug
   const data = await fetchPageData(slug);
-
-  if (!data || !data.length) {
-    notFound();
-  }
+  if (!data || !data.length) notFound();
 
   const acf = data[0].acf || {};
-  const builder = acf.page_builder || [];
 
-  // Resolve all known media IDs to URLs
-  const resolvedBuilder = await Promise.all(
-    builder.map((section) => resolveMediaIds(section))
-  );
+  // Support both builders
+  const builder = acf.page_builder || acf.inner_page_builder || [];
+
+  const resolvedBuilder = await Promise.all((builder || []).map((section) => resolveMediaIds(section)));
+
+  const isInner = Boolean(acf.inner_page_builder);
 
   return (
-    <main className="min-h-screen bg-zinc-50 font-sans">
-      <PageBuilder sections={resolvedBuilder} />
+    <main className="min-h-screen">
+      {isInner ? <InnerPageBuilder sections={resolvedBuilder} /> : <PageBuilder sections={resolvedBuilder} />}
     </main>
   );
 }
 
-/**
- * ✅ SEO — Yoast → Next.js metadata
- * This runs on the server and injects <head> tags
- */
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
   const slug = resolvedParams?.slug;
-
   if (!slug) return {};
 
   const data = await fetchPageData(slug);

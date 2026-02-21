@@ -93,21 +93,28 @@ export default function InsightsSection({ data }) {
   return (
     <section id="insights" className="w-full bg-white py-16 md:py-20">
       <div className="web-width px-6">
-        {/* Text Above Heading */}
+
+         {/* Text Above Heading */}
+         {text_above_heading && (
         <div className="flex items-center justify-center gap-2 text-black/60 text-xs md:text-sm">
           <span className="inline-block w-1.5 h-1.5 bg-[#2D5BFF] rounded-sm" />
           <span>{text_above_heading}</span>
         </div>
+          )}
 
         {/* Main Heading */}
+        {main_heading && (
         <h2 className="mt-6 text-center text-black font-[Merriweather] font-medium text-4xl md:text-6xl leading-[1.05] max-w-3xl mx-auto">
           {main_heading}
         </h2>
+          )}
 
         {/* Text Below Heading */}
-        <p className="mt-6 text-center text-black/60 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+         {text_below_heading && (
+          <p className="mt-6 text-center text-black/60 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
           {text_below_heading}
-        </p>
+           </p>
+          )}
 
         {/* Cards */}
         <div className={`mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${useAltCardDesign ? "gap-6" : "gap-8"}`}>
