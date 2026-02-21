@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { WP_BASE } from "@/config";
+import InsightsCardAlt from "./InsightsCardAlt";
 
 export default function InsightsSection({ data }) {
   if (!data) return null;
+  const pathname = usePathname();
 
   // Destructure from ACF data
   const {
@@ -15,8 +18,12 @@ export default function InsightsSection({ data }) {
     text_below_heading,
     apiBase,
     limit = 3,
-    postsPath = "/post",
+    postsPath = "/blog",
+    card_variant,
   } = data;
+
+  const useAltCardDesign =
+    card_variant === "alt" || card_variant === "insights" || pathname === "/insights";
 
   const API_BASE = (apiBase || WP_BASE || "").replace(/\/$/, "");
   const [posts, setPosts] = useState([]);
@@ -103,7 +110,7 @@ export default function InsightsSection({ data }) {
         </p>
 
         {/* Cards */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={`mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${useAltCardDesign ? "gap-6" : "gap-8"}`}>
           {loading ? (
             Array.from({ length: limit }).map((_, i) => (
               <div key={i} className="p-4 ring-1 ring-black/5" style={{ backgroundColor: 'rgba(219, 226, 233, 0.35)' }}>
@@ -121,7 +128,27 @@ export default function InsightsSection({ data }) {
               const category = getPrimaryCategory(post);
               const date = formatDate(post?.date);
               const img = getFeaturedImage(post);
+              const excerpt = stripHtml(post?.excerpt?.rendered || "")
+                .replace(/\s*(\[\s*&hellip;\s*\]|\[\s*…\s*\]|&hellip;|…)\s*$/i, "")
+                .trim();
               const href = `${postsPath}/${post?.slug || ""}`.replace(/\/+$/, "");
+
+              if (useAltCardDesign) {
+                return (
+                  <InsightsCardAlt
+                    key={post?.id}
+                    post={{
+                      id: post?.id,
+                      title,
+                      category,
+                      date,
+                      excerpt,
+                      image: img,
+                      href,
+                    }}
+                  />
+                );
+              }
 
               return (
                 <article key={post?.id} className="p-4 ring-1 ring-black/5 flex flex-col" style={{ backgroundColor: 'rgba(219, 226, 233, 0.35)' }}>

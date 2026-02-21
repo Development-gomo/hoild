@@ -21,11 +21,12 @@ export default function ImageContentSection({ data, index }) {
 
   return (
     <section className="w-full py-12">
-      <div className="web-width px-6">
-        <div className={`w-full flex flex-col md:flex-row gap-8 md:items-center ${isImageOnRight ? 'md:flex-row-reverse' : ''}`}>
+      <div className="web-width px-6 relative">
+        <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 border-l border-dashed border-[#DBE2E9]" />
+        <div className="w-full grid grid-cols-1 gap-8 md:items-start md:grid-cols-[minmax(0,1fr)_64px_32px_64px_minmax(0,1fr)]">
 
           {/* Image Column */}
-          <div className="w-full md:w-1/2">
+          <div className={`w-full ${isImageOnRight ? 'order-2 md:order-none md:col-start-5 md:row-start-1' : 'order-1 md:order-none md:col-start-1 md:row-start-1'}`}>
             <div className="relative">
               {bg && (
                 <div
@@ -39,36 +40,51 @@ export default function ImageContentSection({ data, index }) {
               )}
 
               {fg && (
-                <div className="relative z-10 p-6">
+                <div
+                  className="relative z-10"
+                  style={{ padding: "105px 56px" }}
+                >
                   <Image
                     src={fg}
                     alt={content_section_title || ''}
                     width={800}
                     height={600}
-                    className="w-full rounded-xl object-cover"
+                    className="w-full object-cover"
                   />
                 </div>
               )}
             </div>
           </div>
 
-          {/* Step Counter / Divider - Always keep space, show number only if index > 0 */}
-          <div className="hidden md:flex w-full md:w-auto justify-center items-center">
-            <div className="flex flex-col items-center gap-4">
-              {typeof index === 'number' && index > 0 ? (
-                <div className="w-16 h-16 rounded-full border-2 border-red-500 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-red-500">{index}</span>
-                </div>
-              ) : (
-                <div className="w-16 h-16" />
-              )}
-            </div>
+          {/* Step Counter */}
+          <div className="hidden md:flex md:col-start-3 md:row-start-1 md:self-center justify-center items-center relative z-10">
+            {typeof index === 'number' && index > 0 ? (
+              <div
+                style={{
+                  borderRadius: "16px",
+                  border: "1px solid #FFF",
+                  background: "#FFF",
+                  boxShadow: "0 3px 6px 0 #DBE2E9",
+                  display: "flex",
+                  width: "32px",
+                  height: "32px",
+                  padding: "4px 1px",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <span className="text-xs text-[#6B7280]">{index}</span>
+              </div>
+            ) : (
+              <div className="w-8 h-8" />
+            )}
           </div>
 
           {/* Content Column */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center">
+          <div className={`w-full flex flex-col justify-start ${isImageOnRight ? 'order-1 md:order-none md:col-start-1 md:row-start-1' : 'order-2 md:order-none md:col-start-5 md:row-start-1'}`}>
             {content_section_title && (
-              <h3 className="text-2xl md:text-3xl font-semibold mb-4">{content_section_title}</h3>
+              <h3 className="mt-0 text-2xl md:text-3xl font-semibold mb-4">{content_section_title}</h3>
             )}
 
             {short_description && (

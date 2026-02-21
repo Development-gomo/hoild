@@ -167,3 +167,18 @@ margin-top: 200px;
 .fw500{
   font-weight: 500;
 }
+
+.insight-post-title {
+  font-size: 56px !important;
+  line-height: 1.1;
+}
+
+.insight-content h2,
+.insight-content h3,
+.insight-content h4,
+.insight-content h5 {
+  font-size: 30px !important;
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  line-height: 1.2;
+}

@@ -5,26 +5,37 @@ import Image from "next/image";
 export default function HomeUsp({ data }) {
   if (!data) return null;
 
-  const uspImage = data?.usp_main_image || '';
+  const uspVideo = data?.usp_main_image || '';
   const usps = data?.usps || [];
 
   return (
-    <section id="main-usp" className="w-full py-12 bg-drk">
+    <section id="main-usp" className="w-full pt-0 pb-12 bg-drk">
       {/* Content container */}
-      <div className="web-width px-6 py-10 flex flex-col items-center">
-        {/* Main USP Image */}
-        {uspImage && (
-          <Image
-            src={uspImage}
-            alt="USP Main Image"
-            width={975}
-            height={485}
-            className="gif-img"
-          />
+      <div className="web-width px-6 pb-10 flex flex-col items-center">
+        {/* Main USP Video */}
+        {uspVideo && (
+          <div
+            className="mx-auto p-[13px] "
+            style={{
+              background: "#1B2444",
+              boxShadow: "0 0 0 1.5px rgba(255,255,255,0.08), 0 32px 80px 0 rgba(0,0,0,0.55)",
+            }}
+          >
+            <div className="w-[974.651px] h-[482.403px] overflow-hidden ">
+              <video
+                src={uspVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-fill"
+              />
+            </div>
+          </div>
         )}
 
         {/* USP Repeater (Three USPs in a Row) */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-[145px] mt-12">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-[145px] mt-20">
           {usps.map((usp, index) => {
             const uspIconUrl = usp?.usp_icon || '';
             const usp_title = usp?.usp_title || '';

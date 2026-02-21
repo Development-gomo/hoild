@@ -22,7 +22,10 @@ export default function SpeacialHeading({ data }) {
 
           {/* Main heading */}
           {main_heading && (
-            <h2 className="special-heading">{main_heading}</h2>
+            <h2
+              className="special-heading"
+              dangerouslySetInnerHTML={{ __html: main_heading }}
+            />
           )}
 
           {/* Dotted / dashed divider and supporting text below */}

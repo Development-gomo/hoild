@@ -63,11 +63,14 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#000821] shadow-lg backdrop-blur-md" : "bg-transparent"
+        scrolled
+          ? "bg-[linear-gradient(90deg,#0a1a63_0%,#06154f_55%,#031141_100%)] shadow-lg backdrop-blur-md"
+          : "bg-transparent"
       }`}
+      style={{ borderBottom: "1px solid rgba(255,255,255,0.30)" }}
     >
       <nav className="w-full relative">
-        <div className="flex items-center h-20">
+        <div className="flex items-center h-16">
           {/* LEFT: LOGO (inside container) */}
           <div className="web-width mx-auto px-6 flex items-center justify-between w-full">
             <div className="flex items-center shrink-0">
@@ -92,19 +95,21 @@ export default function Header() {
             </div>
 
             {/* CENTER: MENU (inside container, centered) */}
-            <ul className="hidden lg:flex items-center gap-8 text-white">
+            <ul className="hidden lg:flex items-center gap-10 text-white">
               {centerMenuItems.map((item) => {
                 const hasChildren = item.children && item.children.length > 0;
                 return (
                   <li key={item.id} className="relative group">
                     <Link
                       href={item.url}
-                      className="flex items-center gap-1.5 py-2 text-white/90 hover:text-white transition-colors font-medium"
+                      className="flex items-center gap-2 py-2 text-white text-base font-normal leading-normal font-sans hover:text-white/90 transition-colors"
                     >
                       {item.title}
                       {hasChildren && (
-                        <span className="text-sm transition-transform duration-300 group-hover:rotate-45">
-                          +
+                        <span className="text-lg leading-none transition-transform duration-300 group-hover:rotate-45">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <path fillRule="evenodd" clipRule="evenodd" d="M7.02595 1.21868e-06V5.97445H13V7.02627L7.02595 7.02556V13H5.97407L5.97478 7.02556H0V5.97445H5.97405L5.97476 0L7.02595 1.21868e-06Z" fill="white"/>
+                    </svg>
                         </span>
                       )}
                     </Link>
@@ -134,15 +139,15 @@ export default function Header() {
           </div>
 
           {/* RIGHT: ACTION ITEMS (outside container, positioned absolute right) */}
-          <div className="hidden lg:flex absolute right-6 top-0 h-20 items-center gap-6">
+          <div className="hidden lg:flex absolute right-0 top-0 h-16 items-center">
             {rightMenuItems.map((item, index) => (
               <Link
                 key={item.id}
                 href={item.url}
                 className={
                   index === rightMenuItems.length - 1
-                    ? "bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded transition-colors font-medium"
-                    : "text-white/90 hover:text-white transition-colors font-medium"
+                    ? "h-full px-7 flex items-center bg-[#2d59ff] hover:bg-[#3a66ff] text-white text-base font-normal leading-normal font-sans transition-colors"
+                    : "h-full px-7 flex items-center text-white text-base font-normal leading-normal font-sans hover:text-white/90 transition-colors"
                 }
               >
                 {item.title}
@@ -174,7 +179,7 @@ export default function Header() {
                   <div className="flex items-center justify-between">
                     <Link
                       href={item.url}
-                      className="py-3 text-white/90 hover:text-white transition-colors flex-1"
+                      className="py-3 text-white text-base font-normal leading-normal font-sans hover:text-white/90 transition-colors flex-1"
                       onClick={() => !hasChildren && setMobileOpen(false)}
                     >
                       {item.title}
@@ -188,7 +193,7 @@ export default function Header() {
                         <span
                           className={`inline-block transition-transform duration-200 ${
                             openSubmenu === item.id ? "rotate-45" : ""
-                          }`}
+                          } text-xl leading-none`}
                         >
                           +
                         </span>
@@ -223,8 +228,8 @@ export default function Header() {
                   href={item.url}
                   className={`block py-3 transition-colors ${
                     index === rightMenuItems.length - 1
-                      ? "text-blue-400 hover:text-blue-300"
-                      : "text-white/90 hover:text-white"
+                      ? "text-white text-base font-normal leading-normal font-sans"
+                      : "text-white text-base font-normal leading-normal font-sans hover:text-white/90"
                   }`}
                   onClick={() => setMobileOpen(false)}
                 >
