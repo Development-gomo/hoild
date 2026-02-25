@@ -129,6 +129,8 @@ position: relative;
   position: relative;
   transition: all 0.3s ease;
   padding: 13px 24px 13px 40px;
+  width: auto !important;
+    max-width: max-content !important;
 }
 
 /* Before Pseudo Element */

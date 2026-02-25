@@ -22,6 +22,7 @@ async function resolveMediaIds(data) {
     "background_image",
     "foreground_image",
     "image",
+    "imageicon",
     "icon",
     "thumbnail",
     "avatar",
@@ -37,7 +38,9 @@ async function resolveMediaIds(data) {
   for (const [key, value] of Object.entries(resolved)) {
     if (typeof value === "number" && mediaFields.includes(key)) {
       const media = await fetchMediaById(value);
-      resolved[key] = media?.source_url || "";
+      // store the full media object when possible so components can
+      // pick `url` or `source_url` as needed
+      resolved[key] = media || null;
     } else if (typeof value === "object" && value !== null) {
       resolved[key] = await resolveMediaIds(value);
     }

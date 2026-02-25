@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 
 function clamp(v, a, b) {
   return Math.max(a, Math.min(b, v));
@@ -81,9 +82,9 @@ function RangeField({
 }
 
 export default function RevenueCalculatorSection({
-  title = "Project your profits with Holid",
+  title = "How much can you earn?",
   subtitle =
-    "Use our interactive calculator to estimate how much revenue you can generate based on your website traffic and ad setup",
+    "Use the calculator to see how much Holid can make your site or app earn",
   maxYearly = 500000,
   ctaLabel = "Get started",
   onCtaClick,
@@ -317,14 +318,13 @@ export default function RevenueCalculatorSection({
               </div>
 
               <div className="p-6 bg-[#000821]">
-                <button
-                  type="button"
-                  onClick={onCtaClick}
-                  className="w-full rounded-xl bg-[#2F43FF] hover:opacity-95 transition text-white font-extrabold text-sm py-4 flex items-center justify-center gap-2"
+                <a
+                  href="https://app.holid.io/register"
+                  className="w-full inline-flex rounded-xl bg-[#2F43FF] hover:opacity-95 transition text-white font-extrabold text-sm py-4 items-center justify-center gap-2"
                 >
                   <span className="inline-block w-1.5 h-1.5 bg-white" />
                   {ctaLabel}
-                </button>
+                </a>
               </div>
             </div>
           </div>

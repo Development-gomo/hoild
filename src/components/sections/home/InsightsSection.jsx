@@ -158,10 +158,10 @@ export default function InsightsSection({ data }) {
               }
 
               return (
-                <article key={post?.id} className="p-4 ring-1 ring-black/5 flex flex-col" style={{ backgroundColor: 'rgba(219, 226, 233, 0.35)' }}>
-                  {/* Image */}
-                  <div className="relative w-full h-[170px] overflow-hidden bg-black/10">
-                    {img ? (
+                <article key={post?.id} className="p-4 ring-1 ring-black/5 flex flex-col">
+                  {/* Image (only render if present) */}
+                  {img ? (
+                    <div className="relative w-full h-[170px] overflow-hidden bg-black/10">
                       <Image
                         src={img}
                         alt={title || "Post image"}
@@ -169,8 +169,8 @@ export default function InsightsSection({ data }) {
                         className="object-cover"
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       />
-                    ) : null}
-                  </div>
+                    </div>
+                  ) : null}
 
                   {/* Category tag */}
                   {category ? (

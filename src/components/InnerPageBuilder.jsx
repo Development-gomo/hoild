@@ -6,6 +6,10 @@ const InnerHeroSection = dynamic(() => import("./sections/inner/InnerHeroSection
 const ContentBlock = dynamic(() => import("./sections/inner/ContentBlock"));
 const TwoColumnContentSection = dynamic(() => import("./sections/inner/TwoColumnContentSection"));
 const ContactSection = dynamic(() => import("./sections/inner/ContactSection"));
+const SpecialHeadingWithCta = dynamic(() => import("./sections/inner/SpecialHeadingWithCta"));
+const ThreeColStructure = dynamic(() => import("./sections/inner/ThreeColStructure"));
+const TwoColStructure = dynamic(() => import("./sections/inner/TwoColStructure"));
+const UspSection = dynamic(() => import("./sections/inner/UspSection"));
 
 export default function InnerPageBuilder({ sections }) {
     if (!sections || !sections.length) return null;
@@ -25,6 +29,18 @@ export default function InnerPageBuilder({ sections }) {
 
           case "contact_section":
             return <ContactSection key={index} data={block} />;
+
+          case "special_heading_with_cta":
+            return <SpecialHeadingWithCta key={index} data={block} />;
+
+          case "three_col_structure":
+            return <ThreeColStructure key={index} data={block} />;
+
+          case "two_col_structure":
+            return <TwoColStructure key={index} data={block} />;
+
+          case "usp_section":
+            return <UspSection key={index} data={block} />;
 
           // Add later when ready
           // case "feature_grid_section":

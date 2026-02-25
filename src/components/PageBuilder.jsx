@@ -10,6 +10,7 @@ const ServicesSlider = dynamic(() => import("./sections/home/ServicesSlider"));
 const InsightsSection = dynamic(() => import("./sections/home/InsightsSection"));
 const RevenueCalculator = dynamic(() => import("./sections/home/RevenueCalculator")); // Importing RevenueCalculator
 const TestimonialSlider = dynamic(() => import("./sections/home/TestimonialSlider"));
+const InnerPageBanner = dynamic(() => import("./sections/home/InnerPageBanner"));
 const ContactSection = dynamic(() => import("./sections/inner/ContactSection"));
 
 export default function PageBuilder({ sections }) {
@@ -59,6 +60,9 @@ export default function PageBuilder({ sections }) {
         switch (block.acf_fc_layout) {
           case "banner":
             return <HomeHero key={index} data={block} />;
+
+          case "inner_page_banner":
+            return <InnerPageBanner key={index} data={block} />;
 
           case "image_content_section":
             const blockIndex = indexMap[index] || 0;

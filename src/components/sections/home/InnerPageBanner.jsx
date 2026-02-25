@@ -1,24 +1,16 @@
-// src/components/sections/inner/InnerHeroSection.jsx
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 
-export default function InnerHeroSection({ data }) {
+export default function InnerPageBanner({ data }) {
   if (!data) return null;
-  const {
-    background_color,
-    heading,
-    subheading,
-    hero_image,
-    button_label,
-    button_url,
-  } = data;
 
-  // ACF image return format can be object or string
+  const { background_color, heading, subheading, hero_image, button_label, button_url } = data;
+
   const heroImgUrl =
     hero_image?.url || hero_image?.source_url || (typeof hero_image === "string" ? hero_image : "");
-  const heroImgAlt = hero_image?.alt || heading || "Service hero";
+  const heroImgAlt = hero_image?.alt || heading || "Banner";
 
   const hasBgImage = Boolean(heroImgUrl);
   const bgStyle = !hasBgImage
@@ -26,11 +18,11 @@ export default function InnerHeroSection({ data }) {
     : undefined;
 
   return (
-    <section className="w-full relative flex items-center min-h-[75vh] py-12 md:py-16" style={bgStyle}>
-      {/* Background image option (if hero image exists AND user wants image-like hero)
-          We do NOT force overlay; we keep it similar to your HomeHero approach.
-          If you want always solid background, remove this block.
-      */}
+    <section
+      className="w-full relative flex items-center min-h-[75vh] py-12"
+      style={bgStyle}
+    >
+      {/* Background image has priority */}
       {hasBgImage ? (
         <div className="absolute inset-0">
           <Image
@@ -44,8 +36,7 @@ export default function InnerHeroSection({ data }) {
         </div>
       ) : null}
 
-      {/* Content container */}
-      <div className="web-width px-6 py-10 relative z-10 flex w-full flex-col md:flex-row md:gap-[10%]">
+      <div className="web-width px-6 py-10 relative z-10 flex w-full flex-col md:flex-row md:gap-[10%] items-start">
         <div className="w-full md:w-1/2 text-white text-left">
           {heading && <h1 className="text-4xl font-bold">{heading}</h1>}
 
