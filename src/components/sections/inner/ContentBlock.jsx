@@ -19,11 +19,11 @@ import Link from "next/link";
 function getBgClass(backgroundType) {
   switch (backgroundType) {
     case "light":
-      return "bg-gray-50 text-black";
+      return "bg-white text-black"; // Light background and black text
     case "dark":
-      return "bg-black text-white";
+      return "bg-[#000821] text-white"; // Dark background with #000821 and white text
     case "brand":
-      return "bg-[#00F5C4] text-black";
+      return "bg-[#00F5C4] text-black"; // Brand color background with black text
     case "custom":
     case "none":
     default:

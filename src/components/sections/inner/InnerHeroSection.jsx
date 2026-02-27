@@ -11,8 +11,7 @@ export default function InnerHeroSection({ data }) {
     heading,
     subheading,
     hero_image,
-    button_label,
-    button_url,
+    button,
   } = data;
 
   // ACF image return format can be object or string
@@ -56,9 +55,17 @@ export default function InnerHeroSection({ data }) {
             />
           )}
 
-          {button_url && (
-            <Link href={button_url} className="inline-flex bg-white px-6 py-3 text-black btn-blue">
-              {button_label || "Learn more"}
+          {button?.url && (
+            <Link
+              href={button.url}
+              target={button.target}
+              className={`inline-flex bg-white px-6 py-3 text-black btn-blue ${
+                bgStyle?.backgroundColor === "#0b1220"
+                  ? "bg-white text-black"
+                  : "bg-black text-white"
+              }`}
+            >
+              {button.title}
             </Link>
           )}
         </div>

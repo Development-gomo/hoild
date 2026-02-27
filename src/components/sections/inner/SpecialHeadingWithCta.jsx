@@ -9,9 +9,13 @@ export default function SpecialHeadingWithCta({ data }) {
   const text_above_heading = data?.text_above_heading || "";
   const text_below_heading = data?.text_below_heading || "";
   const cta = data?.cta || null;
+  const backgroundType = data?.background_type || "light"; // Fetch the background type from ACF
+
+  // Set the background and text color based on the background_type
+  const sectionBgClass = backgroundType === "dark" ? "bg-[#000821] text-white" : "bg-white text-[#1F1C1C]";
 
   return (
-    <section className="w-full py-12">
+    <section className={`w-full py-12 pb-0 ${sectionBgClass}`}>
       <div className="web-width px-6">
         <div className="max-w-3xl mx-auto text-center">
 
@@ -26,15 +30,22 @@ export default function SpecialHeadingWithCta({ data }) {
             <h2 className="special-heading" dangerouslySetInnerHTML={{ __html: main_heading }} />
           )}
 
-          <div className="mt-6 pt-6 border-t border-dashed border-black/20">
+          <div>
             {text_below_heading && (
-              <p className="sub-heading-above">{text_below_heading}</p>
+              <p className="mt-6 sub-heading-above">{text_below_heading}</p>
             )}
 
             {cta && cta.url && (
               <div className="mt-6">
-                <Link href={cta.url} target={cta.target || "_self"} className="inline-flex items-center gap-2 bg-[#2D5BFF] text-white text-xs md:text-sm px-5 py-3">
-                  <span className="inline-block w-1.5 h-1.5 bg-white" />
+                <Link
+                  href={cta.url}
+                  target={cta.target || "_self"}
+                  className={`inline-flex bg-white px-6 py-3 text-black btn-blue ${
+                    backgroundType === "dark"
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                  }`}
+                >
                   {cta.title || "Learn more"}
                 </Link>
               </div>
